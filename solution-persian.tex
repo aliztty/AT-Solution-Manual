@@ -1,0 +1,417 @@
+\documentclass[11pt, a4paper]{article}
+
+% --- Essential Packages ---
+\usepackage{amsmath, amssymb, amsthm} 
+\usepackage{mathtools, enumitem}
+\usepackage{tikz-cd}
+\usepackage{tikz}
+\usetikzlibrary{fadings}
+\usepackage{geometry}
+\usepackage{fancyhdr}
+\usepackage{titlesec}
+\usepackage[dvipsnames]{xcolor}
+% HYPERLINKS SETUP
+\usepackage[colorlinks=true, linkcolor=ThemeColor, urlcolor=ThemeColor]{hyperref}
+% --- Configuration ---
+\geometry{top=2.5cm, bottom=2.5cm, left=2.5cm, right=2.5cm, headsep=1.3cm}
+
+% --- Color Palette (Warm & Print-Safe) ---
+\definecolor{ThemeColor}{named}{Mahogany} 
+\definecolor{SectionColor}{RGB}{70, 20, 20} % Very dark warm tone
+
+% --- TikZ Separator (The "Fancy Shit") ---
+\newcommand{\problemsep}{
+    \vspace{1em}
+    \noindent
+    \begin{center}
+        \begin{tikzpicture}
+            \fill[ThemeColor, path fading=east] (0,0) rectangle (4, 0.05);
+            \fill[ThemeColor, path fading=west] (-4,0) rectangle (0, 0.05);
+            \node[ThemeColor] at (0,0.025) {$\diamond$};
+        \end{tikzpicture}
+    \end{center}
+    \vspace{1em}
+}
+
+% --- XePersian Setup (MUST BE LAST) ---
+\usepackage{xepersian}
+\settextfont{Vazirmatn}
+\setdigitfont{Vazirmatn} % Makes numbers (1, 2, 3) appear in Persian style
+
+% --- Headers & Footers ---
+\pagestyle{fancy}
+\fancyhf{} % Clear all defaults
+
+% Header: Section Name (Left in RTL context), clear (Right)
+\fancyhead[L]{\Large \itshape \color{SectionColor} \leftmark \vspace{-0.3cm}}
+\renewcommand{\headrulewidth}{1pt}
+\renewcommand{\headrule}{\hbox to\headwidth{\color{ThemeColor}\leaders\hrule height \headrulewidth\hfill}}
+
+% Footer: The requested custom structure
+% Note: \lr{} forces Left-to-Right direction for English strings like "Al"
+%\fancyfoot[L]{\bfseries \color{ThemeColor} \footnotesize \lr{Al}}  % Bottom Left
+%\fancyfoot[R]{\bfseries \color{ThemeColor} \footnotesize \lr{IZ}}  % Bottom Right
+\fancyfoot[C]{\thepage}                          % Bottom Center
+
+% Footer Line
+\renewcommand{\footrulewidth}{0.5pt}
+\renewcommand{\footrule}{%
+    \hbox to\headwidth{\color{ThemeColor}\leaders\hrule height \footrulewidth\hfill}%
+}
+
+% --- Title Formatting ---
+\titleformat{\section}
+{\Large\bfseries\color{SectionColor}}{\thesection}{1em}{}
+
+\newenvironment{problem}[1]{
+    % 1. Create invisible anchor
+    \phantomsection 
+    
+    % 2. Add extra gap BEFORE this entry in the TOC
+    % \protect prevents the command from breaking when written to the .toc file
+    \addtocontents{toc}{\protect\vspace{8pt}} 
+    
+    % 3. Add the entry
+    \addcontentsline{toc}{subsection}{مسئله #1} 
+    
+    % 4. The visual text on the page
+    \noindent 
+    {\color{ThemeColor}\bfseries \Large مسئله #1} 
+    \par \vspace{0.5em} 
+    \normalfont
+}{
+    \problemsep 
+}
+
+% --- Helper Command for Solution ---
+\newcommand{\solution}{\\ \par\noindent\textbf{پاسخ:}\space}
+
+% --- Metadata ---
+\newcommand{\booktitle}{توپولوژی جبری. گروه بنیادی}
+\newcommand{\bookauthor}{هادی زارع ، مگردیچ تومانیان} 
+\newcommand{\authors}{
+علی زارع 
+\\[5pt]
+متین عباسی}
+
+\begin{document}
+
+% --- Custom Title Page ---
+\begin{titlepage}
+    \centering
+    \vspace*{2cm}
+    
+    {\Huge \bfseries \color{SectionColor} راهنمای حل المسائل \par}
+    \vspace{1.5cm}
+    
+    {\Huge \bfseries \color{ThemeColor} \booktitle \par}
+    \vspace{0.5cm}
+    {\Large \textit{نوشته‌ی \bookauthor} \par}
+    
+    \vspace{4cm}
+    
+    % TikZ decorative element
+    \begin{tikzpicture}
+        \draw[ThemeColor, thick] (0,0) -- (10,0);
+        \draw[ThemeColor, thick] (0,0.2) -- (10,0.2);
+    \end{tikzpicture}
+    
+    \vspace{4cm}
+    
+    {\Large \textbf{گردآورندگان:} \par}
+    \vspace{0.5cm}
+    {\Large \authors \par}
+    
+\end{titlepage}
+
+% --- Content ---
+\tableofcontents
+\newpage
+
+% Manual Section Setup (Matching your request for 1.5 start)
+\section{گروه بنیادی}
+%\addcontentsline{toc}{section}{گروه بنیادی}
+%\markboth{گروه بنیادی}{گروه بنیادی}
+
+\linespread{2}
+
+
+\begin{problem}{1.5.1}\noindent
+	فرض کنید $X$ یک فضای توپولوژیک با توپولوژی گسسته است.
+	درباره
+	$\pi_1\left(X,x_0\right)$
+	که در آن
+	$x_0 \in X$
+	یک نقطه دلخواه است چه میتوان گفت؟
+	راهنمایی. از لم ۲.۱.۱ به همراه تمرین ۲.۴.۱ استفاده کنید.
+	\solution\\\noindent
+	\textbf{لم}:
+	فرض کنید
+	$C$
+	فضای توپولوژی دلخواه باشد.
+	آنگاه هر تابع پیوسته
+	$f:C \rightarrow X$
+	تابع ثابت خواهد بود.
+	\\
+	\textbf{برهان لم}:
+	به برهان خلف فرض کنید اینچنین نباشد، یعنی تصویر تابع دارای بیشتر از یک عضو خواهد بود و قرار دهید
+	$x_1 \in \text{Im}(f)$
+	آنگاه طبق فرض خلف
+	$\text{Im}(f) - \{x_1\} \neq \emptyset$
+	حال
+	$U = x_1 \quad V = \text{Im}(f) - \{x_1\}$
+	یک جداسازی برای
+	$\text{Im}(f)$
+	خواهد بود که با فرض تناقض دارد.
+	\\
+	حال قرار دهید
+	$C = I$ و
+	$g, f \in \pi_1\left(X, x_0\right)$
+	دلخواه باشند.
+	آنگاه داریم:
+	\begin{align*}
+		f(0) = g(0) = x_0 \quad \Longrightarrow \quad f = C_{x_0} = g_{x_0}
+	\end{align*}
+	در نتیجه 
+	$\pi_1\left(X,x_0\right) \cong e$
+	یکریخت با گروه بدیهی خواهد بود.
+\end{problem}
+
+\begin{problem}{1.5.2}\noindent
+	فرض کنید 
+	$G$
+	یک گروه توپولوژیک مسیری همبند باشد و
+	$e \in G$
+	عضو خنثی این گروه باشد.
+	نشان دهید
+	$\pi_1\left(G,e\right)$
+	یک گروه آبلی است.
+	برای تعریف و مثال هایی در مورد گروه های توپولوژیک فصل ۵ را ببینید.
+	\solution\\\noindent
+	تعریف میکنیم 
+	$\circ : \pi_1(G, e) \times \pi_1(G, e) \rightarrow \pi_1(G, e)$
+	آنگاه داریم:
+	\begin{align*}
+		\left(f \circ g\right)(t) := f(t)\ .\ g(t)
+	\end{align*}
+	اگر
+	$f,g$
+	اعضای گروه بنیادی
+	$\pi_1\left(G,e\right)$
+	باشد آنگاه
+	$f \circ g: I\rightarrow X$
+	پیوسته خواهد بود چون عملگر گروه پیوسته است،
+	آنگاه
+	$f \circ g$
+	نیز پیوسته خواهد بود.
+	\begin{align*}
+		\left.
+		\begin{array}{ll}
+			&(f \circ g)(0) = f(0)\ .\ g(0) = e\ .\ e = e	\\
+			&(f \circ g)(1) = f(1)\ .\ g(1) = e\ .\ e = e
+		\end{array}
+		\right\} \Rightarrow f\circ g \in \pi_1\left(G,e\right)
+	\end{align*}
+	اگر
+	$f_1, f_2, g_1, g_2 \in \pi_1\left(G,e\right)$
+	\begin{align*}
+		\left(f_1 \ast g_1\right) \circ \left(f_2 \ast g_2 \right) = 
+		\left\{
+		\begin{array}{ll}
+			f_1\ .\ f_2 & 0 \le t \le \frac{1}{2}	\\
+			g_1\ .\ g_2 & 0 \le t \le 1	
+		\end{array}
+		\right. = \left( f_1 \circ f_2 \right) \ast \left( g_1 \circ g_2 \right)
+	\end{align*}
+	از طرف دیگر، داریم
+	$C_{e} \ast f \cong f \ast C_{e} \cong f$
+	که نتیجه میدهد:
+	\begin{align*}
+		&\left( f \ast C_e \right) \circ \left( C_e \ast g \right) = \left( f \circ C_e \right) \ast \left( C_e \circ g\right)
+		= f \ast g \\
+		&\left( C_e \ast f \right) \circ \left( g \ast C_e \right) = \left( C_e \circ g \right) \ast \left( f \ast C_e \right)
+		= g \ast f
+	\end{align*}
+	توجه داری که اگر
+	برای هر انتخاب 
+	$f,g \in \pi_1\left(G,e\right)$
+	گزاره زیر را اثبات کنیم کار تمام است.	
+	\begin{align*}
+		\left.
+		\begin{array}{c}
+			f \cong f' \\
+			g \cong g'
+		\end{array}
+		\right\} \Rightarrow f\circ g \cong f' \cong g'
+	\end{align*}
+	فرض کنید 
+	$H , G$
+	به ترتیب هموتوپی های متناظر برای
+	$(f, f')$
+	و
+	$(g, g')$
+	باشند.
+	\\
+	ادعا میکنیم که
+	$H \circ G$
+	هموتوپی بین
+	$f \circ g $
+	و
+	$f'\circ g'$
+	است.
+	\\
+	\textbf{
+	بررسی پیوستگی
+	}:
+	پیوستگی
+	$H$ , $G$
+	پیوستگی
+	$H\circ G$
+	را تضمین میکند.
+	\\
+	\textbf{
+		هموتوپی بودن
+	}
+	\begin{align*}
+		& \left( H \circ G \right)(s, 0) = H(s,0)\ .\ G(s,0) = f \circ g \\
+		& \left( H \circ G \right)(s, 1) = H(s,1)\ .\ G(s,1) = f' \circ g'
+	\end{align*}
+	درنتیجه
+	$f \circ g \cong f' \cong g'$, 
+	و درنتیجه 
+	$\circ$
+	خوش تعریف است. آنگاه:
+	\begin{align*}
+	\left.
+	\begin{array}{c}
+		f \ast C_e \cong f \cong C_e \ast f \\
+		C_e \ast g \cong g \cong g \ast C_e
+	\end{array}
+		\right\} \Rightarrow f \ast g \cong g \ast f 
+		\Rightarrow \left[f\right]\ .\ \left[g\right] = \left[ f \ast g \right] = \left[ g \ast f \right] = \left[g\right]\ .\ 
+		\left[f\right]
+	\end{align*}
+	این اثبات را کامل میکند.
+\end{problem}
+
+
+\begin{problem}{1.5.3}
+	\begin{itemize}
+		\item{(الف)}\\\noindent
+			آیا میتوان گفت که گروه بنیادی همواره یک گروه همواره شمارش پذیر است؟
+			درمورد گروه بنیادی گوشواره نامتناهی اشاره شده در مثال ۳.۶.۶ چه میتوان گفت؟
+			(مقایسه کنید با تمرین ۴.۵.۴)
+		\item{(ب)}\\\noindent
+			با فرض
+			\begin{align*}
+				\pi_1\left(X,x_0\right) \simeq \pi_0\left( \Omega\left(X,x_0\right),\omega_0\right)
+			\end{align*}
+			که در آن 
+			$\omega_0:I\rightarrow X$
+			مسیر ثابت بر پایه
+			$x_0$
+			است، آیا میتوانید یک مثال از فضایی با گروه ناشمارا بیابید؟
+			در اینجا
+			$\Omega\left(X,x_0\right)$
+			دارای توپولوژی فشرده-باز است. برای تعریف توپولوژی فشرده-باز تمرین ۷.۲.۵ را ببینید.
+		\item{(پ)}\\\noindent
+			آیا میتوان گفت برخی شرایط شمارش پذیر بودن گروه بنیادی یک فضا را تضمین میکند؟
+			(برای نمونه تمرین های ۲ و ۴ [۳۳، بخش ۸۲] را ببینید)
+	\end{itemize}
+	\solution
+	\begin{itemize}
+		\item{(الف)}
+	\textbf{خیر}.
+	فرض کنید
+	$n \in \mathbb{N}$
+	آنگاه
+	$C_n$
+	را تعریف میکنیم:
+	\begin{align*}
+		&C_n = \left\{ (x,y) \in\mathbb{R}^{2} : 
+		\left(x-\frac{1}{n}\right)^{2} + y^2 = \left(\frac{1}{n}\right)^{2}\right\}
+	\end{align*}
+	در این صورت مجموعه
+	$\mathcal{H}$
+	گوشواره نامتناهی نامیده میشود.
+	\begin{align*}
+		\mathcal{H} := \bigcup_{n=1}^{\infty}{C_n}
+	\end{align*}
+	حال به محاسبه گروه بنیادی این فضا با در نظر گرفتن نقطه پایه
+	مبدا مختصات خواهیم داشت
+	(
+	$\pi_1\left(X,0\right)$
+	).
+	برای هر دنباله به فرم
+	$\left(a_n\right)_{n\in\mathbb{N}} \in \{0,1\}^{n}$،
+	لوپی تعریف میکنیم به فرم
+	$\alpha_{\left(a_n\right)} : \left[0,1\right] \rightarrow \mathcal{H}$
+	به طوری که:
+	\begin{align*}
+		\left\{
+		\begin{array}{cc}
+		&\text{
+		به دور
+		$C_n$
+		بچرخد
+		}
+		\hfill
+		a_n = 1 \\
+		&\text{
+		به دور
+		$C_n$
+		نچرخد
+		}
+		a_n=0
+		\end{array}
+		\right.
+	\end{align*}
+	در این صورت یک تناظر یک به یک موجود بین دنباله های تشکیل شده از
+	۰ و
+	۱
+	و لوپ ها موجود است که در این صورت واضحا تعداد اینچنین لوپ (دور) ها ناشمارا خواهد بود.
+	
+	\item{(ب)}\\\noindent
+		با توجه به بخش قبلی حداقل یک مثال ارائه شده داریم.
+		\\
+		در نظر داشته باشید که تعریف توپولوژی فشرده-باز با پایه هایش به فرم زیر است:
+		$(K \underset{\text{\tiny فشرده}}{\subseteq} I,\ U \underset{\text{\tiny باز}}{\subseteq} X) $ 
+		\begin{align*}
+			S\left(K,U\right)  = \left\{ f:I\rightarrow X : f\left(K\right) \subseteq U \right\}
+		\end{align*}
+		برای هر
+		$K, U$
+		در نتیجه مولفه های همبندی مسیر های بسته اند که هموتوپ هستند.
+		در نتیجه 
+		$\pi_0$
+		تعداد مولفه های همبندی را میشمارد.
+	\item{(پ)}\\\noindent
+		منیفلد بودن شرط کافی است.
+		\\
+		برهان. قضیه
+		\textcolor{red}{
+		[منبع اضافه شود]
+		}
+\end{problem}
+
+
+
+\section{محاسبه گروه بنیادی}
+%\addcontentsline{toc}{section}{محاسبه گروه بنیادی}
+%\markboth{محاسبه گروه بنیادی}{محاسبه گروه بنیادی}
+
+\begin{problem}{2.3.1}
+\end{problem}
+\begin{problem}{2.3.2}
+\end{problem}
+\begin{problem}{2.3.3}
+\end{problem}
+\begin{problem}{2.3.4}
+\end{problem}
+\begin{problem}{2.3.5}
+\end{problem}
+\begin{problem}{2.3.6}
+\end{problem}
+\begin{problem}{2.3.7}
+\end{problem}
+\end{document}

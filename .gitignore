@@ -1,0 +1,14 @@
+# Log files
+*.fdb_latexmk
+*.aux
+*.out
+*.log
+*.synctex.gz
+*.toc
+*.fls
+
+# Directory
+build/
+
+# Binary files
+*.pdf
